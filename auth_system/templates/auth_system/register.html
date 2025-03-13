@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+
+<div class="min-h-screen flex items-center justify-center bg-[#0a0a0a] text-white p-4">
+    <div class="w-full max-w-5xl bg-[#111] p-10 rounded-lg shadow-lg flex flex-col md:flex-row">
+        
+        <div class="flex justify-center md:hidden">
+            <dotlottie-player src="https://lottie.host/d939b72a-6f24-4dcf-b50d-749ad3e0b04f/Wgfi81QA0S.lottie" 
+                background="transparent" speed="1" style="width: 200px; height: 200px" loop autoplay>
+            </dotlottie-player>
+        </div>
+
+        <div class="md:w-1/2 w-full md:pr-10">
+            <h1 class="text-3xl font-bold mb-6 text-center md:text-left">Create an Account</h1>
+            <form method="post" class="space-y-4">
+                {% csrf_token %}
+                
+                <!-- Username Field -->
+                <div>
+                    <label class="block text-gray-200">Username</label>
+                    <input type="text" name="username" id="username" class="w-full bg-transparent text-white border border-gray-600 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none placeholder-gray-400" placeholder="Enter your username">
+                    {% if form.username.errors %}
+                        <small id="username-error" class="text-red-500">
+                            {% for error in form.username.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </small>
+                    {% endif %}
+                </div>
+                
+                <!-- Email Field -->
+                <div>
+                    <label class="block text-gray-200">Email</label>
+                    <input type="email" name="email" id="email" class="w-full bg-transparent text-white border border-gray-600 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none placeholder-gray-400" placeholder="Enter your email">
+                    {% if form.email.errors %}
+                        <small id="email-error" class="text-red-500">
+                            {% for error in form.email.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </small>
+                    {% endif %}
+                </div>
+                
+                <!-- Country Code and Phone Number Fields -->
+                <div class="flex space-x-4">
+                    <!-- Country Code Dropdown -->
+                    <div class="w-1/3">
+                        <label class="block text-gray-200">Country Code</label>
+                        <select name="country_code" class="w-full bg-transparent text-white border border-gray-600 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none">
+                            <option value="+234" class="text-black">Nigeria (+234)</option>
+                            <option value="+1" class="text-black">USA (+1)</option>
+                            <option value="+44" class="text-black">UK (+44)</option>
+                            <!-- Add more country codes as needed -->
+                        </select>
+                    </div>
+                    <!-- Phone Number Field -->
+                    <div class="w-2/3">
+                        <label class="block text-gray-200">Phone Number</label>
+                        <input type="text" name="phone_number" id="phone" class="w-full bg-transparent text-white border border-gray-600 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none placeholder-gray-400" placeholder="Enter your phone number">
+                        {% if form.phone_number.errors %}
+                            <small id="phone-error" class="text-red-500">
+                                {% for error in form.phone_number.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </small>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Password Field -->
+                <div>
+                    <label class="block text-gray-200">Password</label>
+                    <input type="password" name="password1" id="password" class="w-full bg-transparent text-white border border-gray-600 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none placeholder-gray-400" placeholder="Enter your password">
+                    {% if form.password1.errors %}
+                        <small id="password-error" class="text-red-500">
+                            {% for error in form.password1.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </small>
+                    {% endif %}
+                    <div id="password-strength" class="hidden mt-2">
+                        <small id="uppercase" class="text-red-500">❌ Uppercase Letter</small><br>
+                        <small id="lowercase" class="text-red-500">❌ Lowercase Letter</small><br>
+                        <small id="number" class="text-red-500">❌ Number</small><br>
+                        <small id="symbol" class="text-red-500">❌ Symbol</small><br>
+                        <small id="length" class="text-red-500">❌ Minimum 8 Characters</small>
+                    </div>
+                </div>
+                
+                <!-- Confirm Password Field -->
+                <div>
+                    <label class="block text-gray-200">Confirm Password</label>
+                    <input type="password" name="password2" id="confirm-password" class="w-full bg-transparent text-white border border-gray-600 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none placeholder-gray-400" placeholder="Confirm your password">
+                    {% if form.password2.errors %}
+                        <small id="password2-error" class="text-red-500">
+                            {% for error in form.password2.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </small>
+                    {% endif %}
+                    <small id="password-match" class="hidden"></small>
+                </div>
+
+                <button type="submit" id="submit-btn" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg" disabled>
+                    Register
+                </button>
+            </form>
+        </div>
+
+        <p class="text-gray-400 mt-4 flex justify-center md:hidden">
+            Already have an account? 
+            <a href="{% url 'login' %}" class="text-green-400 hover:underline">Login</a>
+        </p>
+
+        <div class="md:w-1/2 w-full flex flex-col items-center justify-center hidden md:flex">
+            <dotlottie-player src="https://lottie.host/d939b72a-6f24-4dcf-b50d-749ad3e0b04f/Wgfi81QA0S.lottie" 
+                background="transparent" speed="1" style="width: 300px; height: 300px" loop autoplay>
+            </dotlottie-player>
+            
+            <p class="text-gray-400 mt-4">
+                Already have an account? 
+                <a href="{% url 'login' %}" class="text-green-400 hover:underline">Login</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const username = document.getElementById("username");
+    const email = document.getElementById("email");
+    const phone = document.getElementById("phone");
+    const password = document.getElementById("password");
+    const confirmPassword = document.getElementById("confirm-password");
+    const submitBtn = document.getElementById("submit-btn");
+
+    // Function to check password strength
+    function checkPasswordStrength() {
+        const value = password.value;
+        const uppercase = /[A-Z]/.test(value);
+        const lowercase = /[a-z]/.test(value);
+        const number = /\d/.test(value);
+        const symbol = /[\W_]/.test(value);
+        const minLength = value.length >= 8;
+
+        document.getElementById("uppercase").textContent = uppercase ? "✅ Uppercase Letter" : "❌ Uppercase Letter";
+        document.getElementById("lowercase").textContent = lowercase ? "✅ Lowercase Letter" : "❌ Lowercase Letter";
+        document.getElementById("number").textContent = number ? "✅ Number" : "❌ Number";
+        document.getElementById("symbol").textContent = symbol ? "✅ Symbol" : "❌ Symbol";
+        document.getElementById("length").textContent = minLength ? "✅ Minimum 8 Characters" : "❌ Minimum 8 Characters";
+
+        // Enable/disable submit button based on password strength
+        if (uppercase && lowercase && number && symbol && minLength) {
+            submitBtn.disabled = false;
+        } else {
+            submitBtn.disabled = true;
+        }
+    }
+
+    // Function to check if passwords match
+    function checkPasswordMatch() {
+        if (password.value === confirmPassword.value) {
+            document.getElementById("password-match").textContent = "✅ Passwords Match";
+            document.getElementById("password-match").classList.remove("text-red-500");
+            document.getElementById("password-match").classList.add("text-green-500");
+        } else {
+            document.getElementById("password-match").textContent = "❌ Passwords Do Not Match";
+            document.getElementById("password-match").classList.remove("text-green-500");
+            document.getElementById("password-match").classList.add("text-red-500");
+        }
+    }
+
+    // Show password strength errors only when the password field is focused
+    password.addEventListener("focus", () => {
+        document.getElementById("password-strength").classList.remove("hidden");
+    });
+
+    // Hide password strength errors when the password field loses focus (if no input)
+    password.addEventListener("blur", () => {
+        if (password.value === "") {
+            document.getElementById("password-strength").classList.add("hidden");
+        }
+    });
+
+    // Check password strength on input
+    password.addEventListener("input", checkPasswordStrength);
+
+    // Check password match on input
+    confirmPassword.addEventListener("input", checkPasswordMatch);
+});
+</script>
+
+{% endblock %}

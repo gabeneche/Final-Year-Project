@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Multi-Factor Authentication System">
+    <meta name="keywords" content="MFA, Authentication, Security, Login">
+    <meta name="author" content="Ekre Christian Esa">
+
+    <title>MFA System</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/static/images/favicon.png">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- TailwindCSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <!-- DotLottie Player Script -->
+    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Gradient Background */
+        .gradient-bg {
+            background: linear-gradient(135deg, #0a0a0a, #111);
+        }
+
+        /* Animation for buttons */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        /* Animation for sections */
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 1s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide-in-right {
+            animation: slideInRight 1s ease-out;
+        }
+
+        /* Hover Effects */
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        /* Center Lottie Animation */
+        .lottie-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <!-- Navbar -->
+    <nav class="gradient-bg p-4 fixed w-full top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-green-400">MFA System</a>
+            <button id="mobile-menu-button" class="md:hidden text-gray-300 hover:text-green-400">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu md:hidden mt-4">
+            <a href="{% url 'login' %}" class="bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg text-lg hover-scale">
+                <i class="fas fa-sign-in-alt mr-2"></i>Sign In
+            </a>
+            <a href="{% url 'register' %}" class="bg-transparent border border-green-600 text-green-600 hover:bg-green-600 hover:text-white py-3 px-6 rounded-lg text-lg hover-scale">
+                <i class="fas fa-user-plus mr-2"></i>Sign Up
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center gradient-bg px-4">
+        <div class="text-center">
+            <h1 class="text-5xl font-bold mb-6 slide-in-left">Secure Your Account with Multi-Factor Authentication</h1>
+            <p class="text-gray-400 text-xl mb-8 slide-in-right">Protect your data with advanced security features like OTP via SMS, Email, and Google Authenticator.</p>
+            <div class="space-x-4 fade-in-up">
+                <a href="{% url 'login' %}" class="bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg text-lg hover-scale">
+                    <i class="fas fa-sign-in-alt mr-2"></i>Sign In
+                </a>
+                <a href="{% url 'register' %}" class="bg-transparent border border-green-600 text-green-600 hover:bg-green-600 hover:text-white py-3 px-6 rounded-lg text-lg hover-scale">
+                    <i class="fas fa-user-plus mr-2"></i>Sign Up
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-[#111] px-4">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12 slide-in-left">Features</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-[#0a0a0a] p-6 rounded-lg shadow-lg slide-in-left hover-scale">
+                    <i class="fas fa-shield-alt text-green-400 text-4xl mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Secure Authentication</h3>
+                    <p class="text-gray-400">Protect your account with OTP via SMS, Email, and Google Authenticator.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="bg-[#0a0a0a] p-6 rounded-lg shadow-lg slide-in-up hover-scale">
+                    <i class="fas fa-mobile-alt text-green-400 text-4xl mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Responsive Design</h3>
+                    <p class="text-gray-400">Access your account securely from any device, anywhere.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="bg-[#0a0a0a] p-6 rounded-lg shadow-lg slide-in-right hover-scale">
+                    <i class="fas fa-bell text-green-400 text-4xl mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Real-Time Notifications</h3>
+                    <p class="text-gray-400">Get instant alerts for login attempts and security events.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-[#0a0a0a] px-4">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12 slide-in-left">About the Project</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Text Content -->
+                <div class="slide-in-left">
+                    <h3 class="text-2xl font-bold mb-4">Chapter Three: Implementation</h3>
+                    <p class="text-gray-400 mb-4">
+                        This project is a comprehensive implementation of a Multi-Factor Authentication (MFA) system. It includes features like OTP via SMS, Email, and Google Authenticator, along with a secure and responsive user interface.
+                    </p>
+                    <p class="text-gray-400 mb-4">
+                        The system is built using Django for the backend and Tailwind CSS for the frontend. It ensures secure user authentication and provides real-time notifications for security events.
+                    </p>
+                    <p class="text-gray-400">
+                        The project also includes an admin dashboard for managing users and security logs, as well as exportable reports in CSV and PDF formats.
+                    </p>
+                </div>
+                <!-- Lottie Animation for Desktop -->
+                <div class="hidden md:block slide-in-right lottie-container">
+                    <dotlottie-player
+                        src="https://lottie.host/c120098f-9635-486c-95f2-bac5d9401c8e/pjl7eu9P5G.lottie"
+                        background="transparent"
+                        speed="1"
+                        style="width: 400px; height: 400px"
+                        loop
+                        autoplay
+                    ></dotlottie-player>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section id="video" class="py-20 bg-[#111] px-4">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12 slide-in-left">Watch the Demo</h2>
+            <div class="relative aspect-w-16 aspect-h-9 slide-in-up">
+                <iframe
+                    class="rounded-lg shadow-lg hover-scale"
+                    src="https://www.youtube.com/embed/your-video-id?autoplay=1&mute=1"
+                    title="MFA System Demo"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                ></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#0a0a0a] py-8 px-4">
+        <div class="container mx-auto text-center">
+            <p class="text-gray-400">&copy; 2023 MFA System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            var mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

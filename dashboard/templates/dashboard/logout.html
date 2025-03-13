@@ -1,0 +1,19 @@
+<!-- templates/dashboard/logout.html -->
+{% extends "dashboard_base.html" %}
+
+{% block title %}Logout - MFA Dashboard{% endblock %}
+
+{% block content %}
+<h1 class="text-3xl font-bold mb-6">Logout</h1>
+
+<!-- Logout Confirmation -->
+<div class="bg-gray-800 p-6 rounded-lg shadow">
+    <p class="text-gray-400 mb-4">Are you sure you want to log out?</p>
+    <form method="post" action="{% url 'dashboard_logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded">
+            Confirm Logout
+        </button>
+    </form>
+</div>
+{% endblock %}

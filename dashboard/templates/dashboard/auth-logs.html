@@ -1,0 +1,48 @@
+<!-- templates/dashboard/auth-logs.html -->
+{% extends "dashboard_base.html" %}
+
+{% block title %}Auth Logs - MFA Dashboard{% endblock %}
+
+{% block content %}
+<h1 class="text-3xl font-bold mb-6">Authentication Logs</h1>
+
+<!-- Authentication Logs Table -->
+<div class="bg-gray-800 p-4 rounded-lg shadow">
+    <table class="w-full text-left">
+        <thead>
+            <tr class="border-b border-gray-700">
+                <th class="p-2">Date</th>
+                <th class="p-2">Event Type</th>
+                <th class="p-2">Status</th>
+                <th class="p-2">Details</th>
+                <th class="p-2">IP Address</th>
+                <th class="p-2">User Agent</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if auth_logs %}
+                {% for log in auth_logs %}
+                <tr class="hover:bg-gray-700 transition-colors">
+                    <td class="p-2">{{ log.timestamp|date:"F j, Y - H:i" }}</td>
+                    <td class="p-2">{{ log.get_event_type_display }}</td>
+                    <td class="p-2">
+                        <span class="px-2 py-1 rounded text-sm font-medium 
+                            {% if log.status == 'success' %}bg-green-500 text-green-100
+                            {% else %}bg-red-500 text-red-100{% endif %}">
+                            {{ log.get_status_display }}
+                        </span>
+                    </td>
+                    <td class="p-2">{{ log.details }}</td>
+                    <td class="p-2">{{ log.ip_address }}</td>
+                    <td class="p-2">{{ log.user_agent|truncatechars:50 }}</td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="6" class="p-2 text-center text-gray-400">No logs found.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

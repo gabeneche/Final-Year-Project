@@ -1,0 +1,26 @@
+<!-- templates/dashboard/mfa-settings.html -->
+{% extends "dashboard_base.html" %}
+
+{% block title %}MFA Settings - MFA Dashboard{% endblock %}
+
+{% block content %}
+<h1 class="text-3xl font-bold mb-6">MFA Settings</h1>
+
+<!-- MFA Settings Form -->
+<div class="bg-gray-800 p-6 rounded-lg shadow">
+    <form method="post" action="{% url 'dashboard_mfa_settings' %}">
+        {% csrf_token %}
+        <div class="mb-4">
+            <label class="block text-gray-400 mb-2">Enable MFA</label>
+            <select name="mfa_method" class="w-full p-2 bg-gray-700 rounded">
+                <option value="email" {% if mfa_method == 'email' %}selected{% endif %}>Email</option>
+                <option value="sms" {% if mfa_method == 'sms' %}selected{% endif %}>SMS</option>
+                <option value="google_authenticator" {% if mfa_method == 'google_authenticator' %}selected{% endif %}>Google Authenticator</option>
+            </select>
+        </div>
+        <button type="submit" class="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded">
+            Save Changes
+        </button>
+    </form>
+</div>
+{% endblock %}

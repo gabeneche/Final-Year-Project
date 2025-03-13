@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Lottie Player Script -->
+<script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+
+<div class="min-h-screen flex items-center justify-center bg-[#0a0a0a] text-white">
+    <div class="bg-[#111] p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h1 class="text-2xl font-bold mb-6 text-center">Login</h1>
+        
+        <!-- Lottie Animation -->
+        <div class="flex justify-center mb-4">
+            <dotlottie-player src="https://lottie.host/d939b72a-6f24-4dcf-b50d-749ad3e0b04f/Wgfi81QA0S.lottie" 
+                background="transparent" speed="1" style="width: 200px; height: 200px" loop autoplay>
+            </dotlottie-player>
+        </div>
+
+        <form method="post" class="space-y-4">
+            {% csrf_token %}
+            <div>
+                <label class="block text-gray-200">Username</label>
+                <input type="text" name="username" class="w-full bg-transparent text-white border border-gray-600 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none placeholder-gray-400" placeholder="Enter your username">
+            </div>
+            <div>
+                <label class="block text-gray-200">Password</label>
+                <input type="password" name="password" class="w-full bg-transparent text-white border border-gray-600 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none placeholder-gray-400" placeholder="Enter your password">
+            </div>
+            <div class="flex items-center">
+                <input type="checkbox" name="remember_device" id="remember_device" class="h-4 w-4 text-green-500 border-gray-600 rounded focus:ring-green-500">
+                <label for="remember_device" class="ml-2 text-gray-300">Remember this device</label>
+            </div>
+            <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg">
+                Login
+            </button>
+        </form>
+        
+        {% if error %}
+            <p class="text-red-500 mt-4 text-center">{{ error }}</p>
+        {% endif %}
+
+        <!-- Signup Link -->
+        <p class="text-gray-400 mt-4 text-center">
+            Don't have an account? 
+            <a href="{% url 'register' %}" class="text-green-400 hover:underline">Sign up</a>
+        </p>
+
+        <!-- Forgot Password Link -->
+        <p class="text-gray-400 mt-4 text-center">
+            <a href="{% url 'password_reset' %}" class="text-green-400 hover:underline">Forgot Password?</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

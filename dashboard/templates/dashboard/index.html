@@ -1,0 +1,29 @@
+<!-- templates/dashboard/index.html -->
+{% extends "dashboard_base.html" %}
+
+{% block title %}Overview - MFA Dashboard{% endblock %}
+
+{% block content %}
+<h1 class="text-3xl font-bold mb-6">Welcome, {{ request.user.username }}</h1>
+
+<!-- User Overview -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- Active Sessions -->
+    <div class="bg-gray-800 p-4 rounded-lg shadow">
+        <h2 class="text-xl font-semibold">Active Sessions</h2>
+        <p class="text-green-400 text-lg">{{ active_sessions }} Devices</p>
+    </div>
+
+    <!-- Last Login -->
+    <div class="bg-gray-800 p-4 rounded-lg shadow">
+        <h2 class="text-xl font-semibold">Last Login</h2>
+        <p class="text-gray-400 text-lg">{{ last_login }}</p>
+    </div>
+
+    <!-- MFA Status -->
+    <div class="bg-gray-800 p-4 rounded-lg shadow">
+        <h2 class="text-xl font-semibold">MFA Status</h2>
+        <p class="text-green-400 text-lg">{{ mfa_status }}</p>
+    </div>
+</section>
+{% endblock %}

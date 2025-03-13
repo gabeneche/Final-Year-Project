@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-[#0a0a0a] text-white">
+    <div class="bg-[#111] p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h1 class="text-2xl font-bold mb-6 text-center">Verify Your Account</h1>
+
+        <!-- Success Message -->
+        {% if message %}
+            <p class="text-green-500 mb-4 text-center">{{ message }}</p>
+        {% endif %}
+
+        <!-- QR Code -->
+        {% if totp_uri %}
+            <p class="text-gray-300 mb-4 text-center">Scan the QR code with Google Authenticator:</p>
+            <img src="https://chart.googleapis.com/chart?chs=200x200&chld=M|0&cht=qr&chl={{ totp_uri }}" alt="QR Code" class="mx-auto mb-4">
+            <p class="text-gray-300 text-center">Or enter this code manually: <strong>{{ totp_secret }}</strong></p>
+        {% endif %}
+
+        <!-- OTP Verification Form -->
+        <form method="post" class="space-y-4" onsubmit="disableButton()">
+            {% csrf_token %}
+            <div>
+                <label class="block text-gray-200">Enter OTP:</label>
+                <input type="text" name="otp" class="w-full bg-transparent text-white border border-gray-600 rounded-lg p-3 focus:ring-2 focus:ring-green-500 outline-none placeholder-gray-400" placeholder="Enter OTP" required>
+            </div>
+            <div>
+                <label class="flex items-center text-gray-300">
+                    <input type="checkbox" name="remember_device" class="mr-2 bg-transparent border border-gray-600 rounded focus:ring-2 focus:ring-green-500">
+                    Remember this device
+                </label>
+            </div>
+            <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg" id="verify-button">
+                <span id="verify-text">Verify</span>
+                <span id="verify-spinner" class="hidden">Loading...</span>
+            </button>
+        </form>
+
+        <!-- Error Message -->
+        {% if error %}
+            <p class="text-red-500 mt-4 text-center">{{ error }}</p>
+        {% endif %}
+
+        <!-- Resend OTP Form -->
+        <form method="post" class="mt-4" onsubmit="disableResendButton()">
+            {% csrf_token %}
+            <input type="hidden" name="resend_otp">
+            <button type="submit" class="w-full bg-gray-600 hover:bg-gray-700 text-white py-2 px-4 rounded-lg" id="resend-button">
+                <span id="resend-text">Resend OTP</span>
+                <span id="resend-spinner" class="hidden">Loading...</span>
+            </button>
+        </form>
+
+        <!-- Fallback to Email Option -->
+        {% if show_email_option %}
+            <p class="text-gray-400 mt-4 text-center">
+                Failed to send OTP via SMS. <a href="{% url 'resend_verification_email' %}" class="text-green-400 hover:underline">Verify with Email instead</a>.
+            </p>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    function disableButton() {
+        document.getElementById('verify-text').classList.add('hidden');
+        document.getElementById('verify-spinner').classList.remove('hidden');
+        document.getElementById('verify-button').disabled = true;
+    }
+
+    function disableResendButton() {
+        document.getElementById('resend-text').classList.add('hidden');
+        document.getElementById('resend-spinner').classList.remove('hidden');
+        document.getElementById('resend-button').disabled = true;
+    }
+</script>
+{% endblock %}

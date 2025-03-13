@@ -1,0 +1,9 @@
+{% extends 'base.html' %}  
+
+{% block content %}
+<h2>Set Up Google Authenticator</h2>
+<p>Scan the QR code below using your authenticator app:</p>
+<img src="data:image/png;base64,{{ qr_code_base64 }}" alt="QR Code">
+<p>Or enter this secret manually: <strong>{{ totp_secret }}</strong></p>
+<p>Once set up, <a href="{% url 'login' %}">log in</a> to continue.</p>
+{% endblock %}

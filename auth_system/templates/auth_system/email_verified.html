@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-[#0a0a0a] text-white">
+    <div class="bg-[#111] p-8 rounded-lg shadow-lg w-full max-w-md">
+        <!-- Success Icon -->
+        <div class="success-icon"></div>
+
+        <!-- Heading -->
+        <h1 class="text-2xl font-bold mb-4 text-center">Email Verified Successfully!</h1>
+
+        <!-- Message -->
+        <p class="text-gray-300 mb-6 text-center">
+            Your email has been successfully verified. You can now log in to your account.
+        </p>
+
+        <!-- Login Button -->
+        <a href="{% url 'login' %}" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg inline-block text-center">
+            Log In
+        </a>
+    </div>
+</div>
+
+<style>
+    /* Custom styles for the success icon */
+    .success-icon {
+        width: 80px;
+        height: 80px;
+        background-color: #10B981; /* Green color */
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+    }
+    .success-icon::after {
+        content: "✓";
+        color: white;
+        font-size: 40px;
+        font-weight: bold;
+    }
+</style>
+{% endblock %}
