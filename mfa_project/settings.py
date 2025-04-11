@@ -168,3 +168,9 @@ DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER')
 # Sinch API settings
 SINCH_APPLICATION_KEY = config('SINCH_APPLICATION_KEY')
 SINCH_APPLICATION_SECRET = config('SINCH_APPLICATION_SECRET')
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://localhost:8001",
+    "https://mfa-project.onrender.com/",
+    "https://localhost:8000",
+]

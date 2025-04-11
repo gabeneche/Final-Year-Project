@@ -40,7 +40,7 @@ def register(request):
 
             # Send verification email
             token = generate_verification_token(user.email)
-            verification_link = f'http://127.0.0.1:8000/auth/verify-email/{token}/'
+            verification_link = f'https://mfa-project.onrender.com/auth/verify-email/{token}/'
             try:
                 send_mail(
                     'Verify Your Email',
@@ -121,7 +121,7 @@ def resend_verification_email(request):
 
                 if not user.is_email_verified:
                     token = generate_verification_token(user.email)
-                    verification_link = f'http://127.0.0.1:8000/auth/verify-email/{token}/'
+                    verification_link = f'https://mfa-project.onrender.com/auth/verify-email/{token}/'
                     try:
                         send_mail(
                             'Verify Your Email',
@@ -234,6 +234,7 @@ def mfa_verify(request):
             return redirect('select_mfa_method')
         return generate_otp(request)
 
+
 def generate_otp(request):
     user = request.user
     otp = str(random.randint(100000, 999999))
@@ -266,12 +267,13 @@ def generate_otp(request):
 
     return render(request, 'auth_system/mfa_verify.html')
 
+
 def resend_otp(request):
     user = request.user
     try:
+        otp = str(random.randint(100000, 999999))
+        request.session['otp'] = otp
         if user.mfa_method == 'email':
-            otp = str(random.randint(100000, 999999))
-            request.session['otp'] = otp  # Store the new OTP in the session
             send_mail(
                 'Your OTP',
                 f'Your OTP is: {otp}',
@@ -281,8 +283,6 @@ def resend_otp(request):
             )
             messages.success(request, 'OTP resent to your email.')
         elif user.mfa_method == 'sms':
-            otp = str(random.randint(100000, 999999))
-            request.session['otp'] = otp  # Store the new OTP in the session
             if user.send_sms_otp(otp):
                 messages.success(request, 'OTP resent to your phone.')
             else:
@@ -301,6 +301,7 @@ def resend_otp(request):
         logger.error(f"Failed to resend OTP: {str(e)}")
         messages.error(request, 'Failed to resend OTP. Please try again later.')
     return redirect('mfa_verify')
+
 
 # ====================== Device Management Views ======================
 @login_required
